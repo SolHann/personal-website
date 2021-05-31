@@ -1,7 +1,62 @@
-.placeholder {
-    background-color: aqua;
+body {
+    margin: 0px;
+    color: #50514F;
+    background-color: #FFE437;
+}
+body.darktheme{
+    margin: 0px;
+    color: #FFE437;
+    background-color: #50514F;
+}
+a {
+    color: #D56062;
 }
 
-.anotherclass {
-    background-color: burlywood;
+.middle {
+
+    text-align: center;
+    margin: auto; 
+    width: 50%;
+    padding-top: 250px;
+
+
 }
+
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 38px;
+}
+
+.leftnav {
+    display: flex;
+
+}
+.navbar > .leftnav > div {
+    margin-right: 20px;
+    font-size: 0.9em;
+}
+
+.nav-linkwrapper {
+    height: 22px;
+    border-bottom: 1px solid transparent;
+    transition: border-bottom 0.5s;
+
+}
+
+.nav-linkwrapper a{
+    color: #8a8a8a;
+    text-decoration: none;
+    transition: color 0.5s;
+}
+
+.nav-linkwrapper:hover{
+    border-bottom: 1px solid black;
+}
+
+.nav-linkwrapper a:hover{
+    color: black;
+}
+
+
