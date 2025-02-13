@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Tree Project</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        #canvas {
+            width: 100vw;
+            height: 100vh;
+            background-color: #f0f0f0;
+            cursor: grab;
+        }
+        .node {
+            fill: #fff;
+            stroke: #000;
+            stroke-width: 2px;
+        }
+        .label {
+            font-family: Arial, sans-serif;
+            font-size: 12px;
+            text-anchor: middle;
+        }
+    </style>
+</head>
+<body>
+    <svg id="canvas"></svg>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script>
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        const svg = d3.select("#canvas")
+            .attr("width", width)
+            .attr("height", height)
+            .call(d3.zoom().on("zoom", function (event) {
+                svg.attr("transform", event.transform)
+            }))
+            .append("g");
+
+        const treeData = {
+            name: "You",
+            children: [
+                {
+                    name: "Parent 1",
+                    children: [
+                        { name: "Grandparent 1", children: [{ name: "Great Grandparent 1" }, { name: "Great Grandparent 2" }] },
+                        { name: "Grandparent 2", children: [{ name: "Great Grandparent 3" }, { name: "Great Grandparent 4" }] }
+                    ]
+                },
+                {
+                    name: "Parent 2",
+                    children: [
+                        { name: "Grandparent 3", children: [{ name: "Great Grandparent 5" }, { name: "Great Grandparent 6" }] },
+                        { name: "Grandparent 4", children: [{ name: "Great Grandparent 7" }, { name: "Great Grandparent 8" }] }
+                    ]
+                }
+            ]
+        };
+
+        const root = d3.hierarchy(treeData);
+        const treeLayout = d3.tree().size([height, width - 160]);
+        treeLayout(root);
+
+        svg.selectAll(".link")
+            .data(root.links())
+            .enter()
+            .append("line")
+            .attr("class", "link")
+            .attr("x1", d => d.source.y)
+            .attr("y1", d => d.source.x)
+            .attr("x2", d => d.target.y)
+            .attr("y2", d => d.target.x)
+            .attr("stroke", "#ccc");
+
+        const node = svg.selectAll(".node")
+            .data(root.descendants())
+            .enter()
+            .append("g")
+            .attr("class", "node")
+            .attr("transform", d => `translate(${d.y},${d.x})`);
+
+        node.append("circle")
+            .attr("r", 5)
+            .attr("class", "node");
+
+        node.append("text")
+            .attr("dy", -10)
+            .attr("class", "label")
+            .text(d => d.data.name);
+    </script>
+</body>
+</html>
