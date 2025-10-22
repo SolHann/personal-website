@@ -4,14 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Family Tree Project</title>
+    <link rel="stylesheet" href="styles.css" type="text/css">
     <style>
+        :root {
+            --header-height: 60px;
+        }
+
         body {
             margin: 0;
             overflow: hidden;
         }
+
         #canvas {
             width: 100vw;
-            height: 100vh;
+            height: calc(100vh - var(--header-height));
             background-color: #f0f0f0;
             cursor: grab;
         }
@@ -28,11 +34,21 @@
     </style>
 </head>
 <body>
+    <div class="header">
+        <div class="nav-bar">
+            <a href="index.html">Home</a>
+            <a href="family tree project.html">family tree project</a>
+        </div>
+        <button class="btn-toggle">Toggle Dark-Mode</button>
+    </div>
     <svg id="canvas"></svg>
+    <script src="script.js"></script>
     <script src="https://d3js.org/d3.v6.min.js"></script>
     <script>
+        const headerHeight = document.querySelector('.header').offsetHeight;
+        document.documentElement.style.setProperty('--header-height', `${headerHeight}px`);
         const width = window.innerWidth;
-        const height = window.innerHeight;
+        const height = Math.max(window.innerHeight - headerHeight, 0);
         const svg = d3.select("#canvas")
             .attr("width", width)
             .attr("height", height)
