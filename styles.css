@@ -33,10 +33,28 @@ a {
   text-decoration: none;
   color: #333;
 }
+.dark-theme .nav-bar a {
+  color: #809fff;
+}
 
 .btn-toggle {
   padding: 10px 20px;
   cursor: pointer;
+  background: #fff;
+  border: 2px solid #333;
+  border-radius: 4px;
+  font-weight: bold;
+  box-shadow: 2px 3px 0px #333;
+}
+.btn-toggle:active {
+  box-shadow: 0px 1px 0px #333;
+  transform: translateY(2px);
+}
+.dark-theme .btn-toggle {
+  background: #444;
+  color: #f0f0f0;
+  border-color: #aaa;
+  box-shadow: 2px 3px 0px #222;
 }
 
 .wrapper {
@@ -48,4 +66,6 @@ a {
 }
 .wrapper .middle h1 {
   text-align: center;
-}/*# sourceMappingURL=styles.css.map */
+}
+
+/*# sourceMappingURL=styles.css.map */
