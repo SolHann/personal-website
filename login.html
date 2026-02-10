@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="styles.css" type="text/css">
+    <link rel="stylesheet" href="login.css" type="text/css">
+</head>
+<body>
+    <div class="header">
+        <div class="nav-bar">
+            <a href="index.html">Home</a>
+        </div>
+        <button class="btn-toggle">Toggle Dark-Mode</button>
+    </div>
+
+    <div id="tile-playground"></div>
+
+    <div class="login-wrapper">
+        <h2>Blursed Login</h2>
+
+        <label for="username">Username</label>
+        <input type="text" id="username" placeholder="Enter your username" />
+
+        <label>Password</label>
+        <div id="drop-zone">
+            <span id="drop-zone-label">drop tiles here</span>
+        </div>
+
+        <ul class="requirements">
+            <li id="req-upper">At least 1 uppercase letter</li>
+            <li id="req-number">At least 1 number</li>
+            <li id="req-symbol">At least 1 symbol (!?@&amp;)</li>
+            <li id="req-length">At least 6 characters</li>
+        </ul>
+
+        <div class="btn-row">
+            <button id="btn-clear">Clear Password</button>
+            <button id="btn-spawn">Spawn More Characters</button>
+            <button id="btn-submit">Submit</button>
+        </div>
+        <div id="login-error"></div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="login.js"></script>
+</body>
+</html>
