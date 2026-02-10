@@ -7,7 +7,7 @@
   const DAMPING = 0.98;
   const FRICTION = 0.94;
   const REPULSE_RADIUS = 120;
-  const REPULSE_STRENGTH = 2.5;
+  const REPULSE_STRENGTH = 1.8;
 
   const playground = document.getElementById('tile-playground');
   const dropZone = document.getElementById('drop-zone');
@@ -15,15 +15,23 @@
   const reqUpper = document.getElementById('req-upper');
   const reqNumber = document.getElementById('req-number');
   const reqSymbol = document.getElementById('req-symbol');
-  const btnClear = document.getElementById('btn-clear');
+  const reqLength = document.getElementById('req-length');
   const btnSpawn = document.getElementById('btn-spawn');
   const btnSubmit = document.getElementById('btn-submit');
   const loginError = document.getElementById('login-error');
   const usernameInput = document.getElementById('username');
   const loginWrapper = document.querySelector('.login-wrapper');
 
+  const confirmSection = document.getElementById('confirm-section');
+  const confirmDisplay = document.getElementById('confirm-display');
+  const confirmZone = document.getElementById('confirm-zone');
+  const btnClearTiles = document.getElementById('btn-clear-tiles');
+
   const tiles = [];
   const passwordTiles = [];
+  const confirmTiles = [];
+  let confirming = false;
+  let savedPassword = '';
   let dragging = null;
   let mouseX = -9999;
   let mouseY = -9999;
@@ -40,7 +48,7 @@
   }
 
   function tileCount() {
-    return tiles.length + passwordTiles.length;
+    return tiles.length + passwordTiles.length + confirmTiles.length;
   }
 
   function spawnTile() {
@@ -119,14 +127,26 @@
     const tile = dragging.tile;
     tile.el.classList.remove('dragging');
 
-    const dzRect = dropZone.getBoundingClientRect();
-    if (
-      cx >= dzRect.left && cx <= dzRect.right &&
-      cy >= dzRect.top && cy <= dzRect.bottom
-    ) {
-      dropTileInZone(tile);
+    if (confirming) {
+      const czRect = confirmZone.getBoundingClientRect();
+      if (
+        cx >= czRect.left && cx <= czRect.right &&
+        cy >= czRect.top && cy <= czRect.bottom
+      ) {
+        dropTileInConfirmZone(tile);
+      } else {
+        tile.momentum = true;
+      }
     } else {
-      tile.momentum = true;
+      const dzRect = dropZone.getBoundingClientRect();
+      if (
+        cx >= dzRect.left && cx <= dzRect.right &&
+        cy >= dzRect.top && cy <= dzRect.bottom
+      ) {
+        dropTileInZone(tile);
+      } else {
+        tile.momentum = true;
+      }
     }
 
     dragging = null;
@@ -185,29 +205,92 @@
     const hasUpper = /[A-Z]/.test(pw);
     const hasNumber = /[0-9]/.test(pw);
     const hasSymbol = /[!?@&]/.test(pw);
+    const hasLength = pw.length >= 6;
     reqUpper.classList.toggle('met', hasUpper);
     reqNumber.classList.toggle('met', hasNumber);
     reqSymbol.classList.toggle('met', hasSymbol);
+    reqLength.classList.toggle('met', hasLength);
   }
 
-  // --- Clear ---
-  btnClear.addEventListener('click', function () {
-    while (passwordTiles.length) {
-      var t = passwordTiles.pop();
-      dropZone.removeChild(t.el);
+  // --- Confirm zone ---
+  function dropTileInConfirmZone(tile) {
+    const idx = tiles.indexOf(tile);
+    if (idx !== -1) tiles.splice(idx, 1);
+    playground.removeChild(tile.el);
+
+    const el = document.createElement('div');
+    el.className = 'tile tile-static';
+    el.textContent = tile.el.textContent;
+    confirmZone.appendChild(el);
+
+    const cTile = { el: el, char: tile.el.textContent };
+    confirmTiles.push(cTile);
+
+    el.addEventListener('click', function () {
+      const i = confirmTiles.indexOf(cTile);
+      if (i !== -1) confirmTiles.splice(i, 1);
+      confirmZone.removeChild(el);
+      confirmZone.classList.toggle('has-tiles', confirmTiles.length > 0);
+    });
+
+    confirmZone.classList.toggle('has-tiles', confirmTiles.length > 0);
+  }
+
+  function getConfirmPassword() {
+    return confirmTiles.map(function (t) { return t.char; }).join('');
+  }
+
+  function clearFloatingTiles() {
+    while (tiles.length) {
+      var t = tiles.pop();
+      playground.removeChild(t.el);
     }
-    updateDropZone();
-    updateRequirements();
+  }
+
+  function enterConfirmMode(password) {
+    confirming = true;
+    savedPassword = password;
+    confirmDisplay.textContent = password;
+    confirmSection.style.display = '';
+    dropZone.style.pointerEvents = 'none';
+    dropZone.style.opacity = '0.5';
+    clearFloatingTiles();
     loginError.textContent = '';
-  });
+  }
 
   // --- Spawn more ---
   btnSpawn.addEventListener('click', function () {
     spawnBatch(8);
   });
 
+  // --- Clear floating tiles ---
+  btnClearTiles.addEventListener('click', function () {
+    clearFloatingTiles();
+  });
+
   // --- Submit ---
   btnSubmit.addEventListener('click', function () {
+    if (confirming) {
+      const confirmPw = getConfirmPassword();
+      if (!confirmPw) {
+        loginError.textContent = 'Drag tiles into the confirm password box.';
+        return;
+      }
+      if (confirmPw !== savedPassword) {
+        loginError.textContent = 'Passwords do not match! Try again.';
+        while (confirmTiles.length) {
+          var ct = confirmTiles.pop();
+          confirmZone.removeChild(ct.el);
+        }
+        confirmZone.classList.remove('has-tiles');
+        clearFloatingTiles();
+        return;
+      }
+      sessionStorage.setItem('secretAuth', 'true');
+      window.location.href = 'secret.html';
+      return;
+    }
+
     const user = usernameInput.value.trim();
     if (!user) {
       loginError.textContent = 'Enter a username. Literally anything.';
@@ -221,12 +304,12 @@
     const hasUpper = /[A-Z]/.test(pw);
     const hasNumber = /[0-9]/.test(pw);
     const hasSymbol = /[!?@&]/.test(pw);
-    if (!hasUpper || !hasNumber || !hasSymbol) {
+    const hasLength = pw.length >= 6;
+    if (!hasUpper || !hasNumber || !hasSymbol || !hasLength) {
       loginError.textContent = 'Password does not meet all requirements!';
       return;
     }
-    sessionStorage.setItem('blursedAuth', 'true');
-    window.location.href = 'secret.html';
+    enterConfirmMode(pw);
   });
 
   // --- Physics loop ---
@@ -256,6 +339,10 @@
       const dx = tileCX - mouseX;
       const dy = tileCY - mouseY;
       const dist = Math.sqrt(dx * dx + dy * dy);
+
+      // Toggle fleeing limbs
+      const isFleeing = dist < REPULSE_RADIUS;
+      t.el.classList.toggle('fleeing', isFleeing);
 
       if (dist < REPULSE_RADIUS && dist > 1) {
         const force = REPULSE_STRENGTH * (1 - dist / REPULSE_RADIUS);
@@ -324,6 +411,6 @@
   }
 
   // --- Init ---
-  spawnBatch(20);
+  spawnBatch(8);
   requestAnimationFrame(physicsTick);
 })();

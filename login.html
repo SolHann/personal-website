@@ -4,6 +4,9 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css" type="text/css">
     <link rel="stylesheet" href="login.css" type="text/css">
 </head>
@@ -18,14 +21,14 @@
     <div id="tile-playground"></div>
 
     <div class="login-wrapper">
-        <h2>Blursed Login</h2>
+        <h2>Login</h2>
 
         <label for="username">Username</label>
         <input type="text" id="username" placeholder="Enter your username" />
 
         <label>Password</label>
         <div id="drop-zone">
-            <span id="drop-zone-label">drop tiles here</span>
+            <span id="drop-zone-label"></span>
         </div>
 
         <ul class="requirements">
@@ -35,9 +38,18 @@
             <li id="req-length">At least 6 characters</li>
         </ul>
 
+        <div id="confirm-section" style="display:none;">
+            <label>Your password:</label>
+            <div id="confirm-display"></div>
+            <label>Confirm Password</label>
+            <div id="confirm-zone">
+                <span id="confirm-zone-label"></span>
+            </div>
+        </div>
+
         <div class="btn-row">
-            <button id="btn-clear">Clear Password</button>
             <button id="btn-spawn">Spawn More Characters</button>
+            <button id="btn-clear-tiles">Clear Tiles</button>
             <button id="btn-submit">Submit</button>
         </div>
         <div id="login-error"></div>

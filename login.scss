@@ -1,4 +1,5 @@
 $monospace: 'Courier New', Courier, monospace;
+$pixel: 'Press Start 2P', cursive;
 
 #tile-playground {
   position: fixed;
@@ -8,6 +9,11 @@ $monospace: 'Courier New', Courier, monospace;
   height: 100vh;
   pointer-events: none;
   z-index: 30;
+  cursor: crosshair;
+}
+
+body {
+  cursor: crosshair;
 }
 
 .tile {
@@ -16,33 +22,113 @@ $monospace: 'Courier New', Courier, monospace;
   height: 44px;
   background: #fff;
   border: 2px solid #333;
-  border-radius: 6px;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
+  font-size: 20px;
   font-weight: bold;
+  font-family: $pixel;
   color: #333;
   cursor: grab;
   pointer-events: auto;
   user-select: none;
   -webkit-user-select: none;
-  transition: box-shadow 0.15s;
+  box-shadow: 2px 3px 0px #333;
   z-index: 31;
+  animation: tile-pop-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 
   &:active {
     cursor: grabbing;
   }
 
   &.dragging {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    box-shadow: 4px 6px 0px rgba(0, 0, 0, 0.4);
     z-index: 100;
+    transform: scale(1.1);
   }
 
   body.dark-theme & {
-    background: #3a3a3a;
-    border-color: #aaa;
-    color: #f0f0f0;
+    background: #FFB84D;
+    border-color: #c98a2e;
+    color: #50514F;
+    box-shadow: 2px 3px 0px #8a6020;
+  }
+
+  // Stick figure limbs when fleeing from cursor
+  &.fleeing {
+    overflow: visible;
+
+    // Legs — two separate stick legs with alternating animation
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: -14px;
+      left: 50%;
+      width: 18px;
+      height: 14px;
+      transform: translateX(-50%);
+      background: none;
+      border-left: 2.5px solid #333;
+      border-right: 2.5px solid #333;
+      border-bottom: none;
+      border-top: none;
+      animation: run-legs 0.15s steps(2) infinite;
+
+      body.dark-theme & {
+        border-left-color: #50514F;
+        border-right-color: #50514F;
+      }
+    }
+
+    // Arms — two little lines sticking out the sides, transparent through the tile
+    &::after {
+      content: '';
+      position: absolute;
+      top: 40%;
+      left: -12px;
+      width: calc(100% + 24px);
+      height: 2.5px;
+      background: linear-gradient(to right, #333 12px, transparent 12px, transparent calc(100% - 12px), #333 calc(100% - 12px));
+      transform: translateY(-50%);
+      animation: flail-arms 0.18s ease-in-out infinite alternate;
+
+      body.dark-theme & {
+        background: linear-gradient(to right, #50514F 12px, transparent 12px, transparent calc(100% - 12px), #50514F calc(100% - 12px));
+      }
+    }
+  }
+}
+
+@keyframes tile-pop-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) rotate(-10deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes run-legs {
+  0% {
+    transform: translateX(-50%) skewX(-20deg);
+  }
+  50% {
+    transform: translateX(-50%) skewX(20deg);
+  }
+  100% {
+    transform: translateX(-50%) skewX(-20deg);
+  }
+}
+
+@keyframes flail-arms {
+  0% {
+    transform: translateY(-50%) rotate(-15deg);
+  }
+  100% {
+    transform: translateY(-50%) rotate(15deg);
   }
 }
 
@@ -50,19 +136,24 @@ $monospace: 'Courier New', Courier, monospace;
   position: relative;
   z-index: 20;
   max-width: 420px;
-  margin: 40px auto;
+  margin: 80px auto;
   padding: 24px;
-  background: rgba(255, 255, 255, 0.92);
-  border-radius: 12px;
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.12);
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid #333;
+  border-radius: 4px;
+  box-shadow: 4px 6px 0px #333;
   text-align: center;
 
   body.dark-theme & {
-    background: rgba(60, 60, 60, 0.95);
+    background: rgba(60, 60, 60, 0.97);
+    border-color: #aaa;
+    box-shadow: 4px 6px 0px #222;
   }
 
   h2 {
     margin-bottom: 16px;
+    font-family: $pixel;
+    font-size: 18px;
   }
 
   p.subtitle {
@@ -76,30 +167,36 @@ $monospace: 'Courier New', Courier, monospace;
     text-align: left;
     margin-bottom: 4px;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 12px;
+    font-family: $pixel;
   }
 
   input[type="text"] {
     width: 100%;
     padding: 8px 10px;
     font-size: 16px;
-    border: 2px solid #ccc;
-    border-radius: 6px;
+    font-family: $monospace;
+    border: 2px solid #333;
+    border-radius: 4px;
     margin-bottom: 16px;
     box-sizing: border-box;
+    box-shadow: inset 1px 2px 0px rgba(0,0,0,0.1);
 
     body.dark-theme & {
       background: #555;
-      border-color: #777;
+      border-color: #aaa;
       color: #f0f0f0;
+      box-shadow: inset 1px 2px 0px rgba(0,0,0,0.2);
     }
   }
 }
 
-#drop-zone {
-  min-height: 32px;
-  border: 2px inset #bbb;
-  border-radius: 0;
+// Shared drop zone styles
+#drop-zone,
+#confirm-zone {
+  min-height: 36px;
+  border: 2px solid #333;
+  border-radius: 4px;
   padding: 4px 6px;
   display: flex;
   flex-wrap: wrap;
@@ -112,10 +209,13 @@ $monospace: 'Courier New', Courier, monospace;
   font-family: $monospace;
   box-sizing: border-box;
   width: 100%;
+  box-shadow: inset 1px 2px 0px rgba(0,0,0,0.08);
+  transition: border-color 0.2s, box-shadow 0.2s;
 
   body.dark-theme & {
-    border-color: #666;
+    border-color: #aaa;
     background: #444;
+    box-shadow: inset 1px 2px 0px rgba(0,0,0,0.15);
   }
 
   .tile-static {
@@ -134,6 +234,9 @@ $monospace: 'Courier New', Courier, monospace;
     display: flex;
     align-items: center;
     justify-content: center;
+    box-shadow: none;
+    animation: none;
+    font-weight: bold;
 
     body.dark-theme & {
       color: #f0f0f0;
@@ -153,15 +256,15 @@ $monospace: 'Courier New', Courier, monospace;
   &::after {
     content: '';
     display: inline-block;
-    width: 1px;
+    width: 2px;
     height: 20px;
     background: #333;
-    animation: blink-caret 1s step-end infinite;
+    animation: blink-caret 0.8s step-end infinite;
     flex-shrink: 0;
     align-self: center;
 
     body.dark-theme & {
-      background: #ccc;
+      background: #FFB84D;
     }
   }
 }
@@ -171,70 +274,142 @@ $monospace: 'Courier New', Courier, monospace;
   50% { opacity: 0; }
 }
 
-#drop-zone-label {
-  font-size: 13px;
+#drop-zone-label,
+#confirm-zone-label {
+  font-size: 11px;
+  font-family: $pixel;
   color: #999;
   pointer-events: none;
   position: absolute;
   top: 50%;
   left: 8px;
   transform: translateY(-50%);
-  font-family: $monospace;
+}
 
-  #drop-zone.has-tiles & {
-    display: none;
-  }
+#drop-zone.has-tiles #drop-zone-label,
+#confirm-zone.has-tiles #confirm-zone-label {
+  display: none;
 }
 
 .requirements {
   text-align: left;
-  font-size: 13px;
+  font-size: 10px;
+  font-family: $pixel;
   margin-bottom: 14px;
   list-style: none;
   padding: 0;
+  line-height: 1.8;
 
   li {
-    margin-bottom: 3px;
+    margin-bottom: 4px;
     color: #c44;
+    transition: color 0.2s;
+
+    &::before {
+      content: '[ ] ';
+      font-family: $monospace;
+    }
 
     &.met {
       color: #2a2;
-      text-decoration: line-through;
+      text-decoration: none;
+
+      &::before {
+        content: '[x] ';
+      }
     }
   }
 }
 
 .btn-row {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   justify-content: center;
-  margin-top: 10px;
+  margin-top: 14px;
   flex-wrap: wrap;
 
   button {
-    padding: 10px 18px;
-    font-size: 14px;
-    cursor: pointer;
-    border: 2px solid #333;
-    border-radius: 6px;
+    padding: 6px 12px;
+    font-size: 10px;
+    cursor: cell;
+    font-family: $pixel;
     background: #fff;
+    border: 2px solid #333;
+    border-radius: 4px;
+    box-shadow: 2px 3px 0px #333;
     color: #333;
+    transition: transform 0.1s, box-shadow 0.1s;
+
+    &:active {
+      box-shadow: 0px 1px 0px #333;
+      transform: translateY(2px);
+    }
 
     body.dark-theme & {
-      background: #555;
-      border-color: #aaa;
+      background: #444;
       color: #f0f0f0;
+      border-color: #aaa;
+      box-shadow: 2px 3px 0px #222;
+
+      &:active {
+        box-shadow: 0px 1px 0px #222;
+      }
     }
 
     &:hover {
-      opacity: 0.8;
+      opacity: 0.85;
     }
+  }
+}
+
+#confirm-section {
+  margin-top: 16px;
+  padding-top: 14px;
+  border-top: 2px dashed #ccc;
+  animation: confirm-slide-in 0.3s ease-out both;
+
+  body.dark-theme & {
+    border-top-color: #666;
+  }
+}
+
+@keyframes confirm-slide-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#confirm-display {
+  font-family: $monospace;
+  font-size: 18px;
+  font-weight: bold;
+  letter-spacing: 4px;
+  padding: 8px 10px;
+  margin-bottom: 12px;
+  background: #f0f0f0;
+  border: 2px solid #333;
+  border-radius: 4px;
+  text-align: center;
+  box-shadow: inset 1px 2px 0px rgba(0,0,0,0.08);
+
+  body.dark-theme & {
+    background: #555;
+    border-color: #aaa;
+    color: #FFB84D;
+    box-shadow: inset 1px 2px 0px rgba(0,0,0,0.15);
   }
 }
 
 #login-error {
   color: #c44;
-  font-size: 13px;
+  font-size: 10px;
+  font-family: $pixel;
   min-height: 20px;
-  margin-top: 8px;
+  margin-top: 10px;
+  line-height: 1.6;
 }
