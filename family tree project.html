@@ -37,7 +37,7 @@
     <div class="header">
         <div class="nav-bar">
             <a href="index.html">Home</a>
-            <a href="family tree project.html">family tree project</a>
+            <a href="secret.html" id="nav-secret" style="display:none;">Secret Page</a>
         </div>
         <button class="btn-toggle">Toggle Dark-Mode</button>
     </div>
@@ -107,6 +107,11 @@
             .attr("dy", -10)
             .attr("class", "label")
             .text(d => d.data.name);
+    </script>
+    <script>
+        if (sessionStorage.getItem('blursedAuth')) {
+            document.getElementById('nav-secret').style.display = '';
+        }
     </script>
 </body>
 </html>

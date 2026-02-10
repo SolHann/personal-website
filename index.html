@@ -9,7 +9,7 @@
     <div class="header">
         <div class ="nav-bar">
             <a href="index.html">Home</a>
-            <a href="family tree project.html">family tree project</a>
+            <a href="secret.html" id="nav-secret" style="display:none;">Secret Page</a>
         </div>
         <button class="btn-toggle">Toggle Dark-Mode</button>
     </div>
@@ -17,9 +17,15 @@
         <div class="welcome-page">
             <div class="middle">
                 <h1>hello!</h1>
+                <a href="login.html" style="display:inline-block; margin-top:16px; font-size:18px;">Login to Secret Page</a>
             </div>
         </div>
     </div>
-    <script src="script.js"></script> 
+    <script src="script.js"></script>
+    <script>
+        if (sessionStorage.getItem('blursedAuth')) {
+            document.getElementById('nav-secret').style.display = '';
+        }
+    </script>
 </body>
 </html>
