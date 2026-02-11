@@ -68,8 +68,8 @@ body.dark-theme .tile {
   animation: run-legs 0.15s steps(2) infinite;
 }
 body.dark-theme .tile.fleeing::before {
-  border-left-color: #50514F;
-  border-right-color: #50514F;
+  border-left-color: #c98a2e;
+  border-right-color: #c98a2e;
 }
 .tile.fleeing::after {
   content: "";
@@ -83,7 +83,7 @@ body.dark-theme .tile.fleeing::before {
   animation: flail-arms 0.18s ease-in-out infinite alternate;
 }
 body.dark-theme .tile.fleeing::after {
-  background: linear-gradient(to right, #50514F 12px, transparent 12px, transparent calc(100% - 12px), #50514F calc(100% - 12px));
+  background: linear-gradient(to right, #c98a2e 12px, transparent 12px, transparent calc(100% - 12px), #c98a2e calc(100% - 12px));
 }
 
 @keyframes tile-pop-in {
