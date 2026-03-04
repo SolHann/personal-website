@@ -61,15 +61,69 @@ a {
   box-shadow: 2px 3px 0px #222;
 }
 
+.index-toggle {
+  position: fixed;
+  top: 10px;
+  right: 12px;
+  z-index: 50;
+}
+
 .wrapper {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   text-align: center;
-  margin-top: 50px;
 }
 .wrapper .middle {
-  display: inline-block;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .wrapper .middle h1 {
   text-align: center;
+  font-size: clamp(2.5rem, 10vw, 5rem);
+  font-family: "Press Start 2P", cursive;
+  margin-bottom: 28px;
+}
+
+.social-links {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  color: currentColor;
+  font-family: "Orbitron", sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  padding: 8px 14px;
+  border: 2px solid currentColor;
+  border-radius: 4px;
+  box-shadow: 3px 3px 0px currentColor;
+  transition: transform 0.1s, box-shadow 0.1s;
+}
+.social-link:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0px currentColor;
+}
+.social-link:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+.dark-theme .social-link {
+  color: #f0f0f0;
+}
+
+.social-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
 }
 
 /*# sourceMappingURL=styles.css.map */
