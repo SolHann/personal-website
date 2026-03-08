@@ -6,7 +6,7 @@
 body {
   color: #50514F;
   background-color: #FFB84D;
-  font-family: "Orbitron", cursive;
+  font-family: "Orbitron", sans-serif;
 }
 body.dark-theme {
   color: #FFB84D;
@@ -44,7 +44,7 @@ a {
   padding: 5px 10px;
   margin: 5px 5px 7px;
   cursor: cell;
-  font-family: "Press Start 2P", cursive;
+  font-family: "Press Start 2P", sans-serif;
   background: #fff;
   border: 2px solid #333;
   border-radius: 5px;
@@ -61,8 +61,24 @@ a {
   box-shadow: 2px 3px 0px #222;
 }
 
-.index-toggle {
-  position: fixed;
+.home-link {
+  position: absolute;
+  top: 12px;
+  left: 14px;
+  font-size: 30px;
+  text-decoration: none;
+  z-index: 50;
+  line-height: 1;
+  transition: transform 0.15s;
+}
+.home-link:hover {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+.index-toggle,
+.blursed-toggle {
+  position: absolute;
   top: 10px;
   right: 12px;
   z-index: 50;
@@ -83,7 +99,7 @@ a {
 .wrapper .middle h1 {
   text-align: center;
   font-size: clamp(2.5rem, 10vw, 5rem);
-  font-family: "Press Start 2P", cursive;
+  font-family: "Press Start 2P", sans-serif;
   margin-bottom: 28px;
 }
 

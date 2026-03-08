@@ -7,7 +7,7 @@
   const DAMPING = 0.98;
   const FRICTION = 0.94;
   const REPULSE_RADIUS = 120;
-  const REPULSE_STRENGTH = 1.8;
+  const REPULSE_STRENGTH = 1.6;
 
   const playground = document.getElementById('tile-playground');
   const dropZone = document.getElementById('drop-zone');
@@ -57,7 +57,7 @@
     el.className = 'tile';
     el.textContent = randomChar();
 
-    const headerH = document.querySelector('.header').offsetHeight;
+    const headerH = 0;
     const x = Math.random() * (window.innerWidth - TILE_SIZE);
     const y = headerH + Math.random() * (window.innerHeight - headerH - TILE_SIZE);
 
@@ -314,7 +314,7 @@
 
   // --- Physics loop ---
   function physicsTick() {
-    const headerH = document.querySelector('.header').offsetHeight;
+    const headerH = 0;
     const maxX = window.innerWidth - TILE_SIZE;
     const maxY = window.innerHeight - TILE_SIZE;
 
