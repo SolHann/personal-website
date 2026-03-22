@@ -3,17 +3,69 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Results</title>
+    <title>Solscape Search Results</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css" type="text/css">
+    <link rel="stylesheet" href="search.css" type="text/css">
     <link rel="stylesheet" href="search-result.css" type="text/css">
 </head>
 <body>
-    <a href="blursed.html" class="home-link" aria-label="Home">🏠</a>
+    <div class="browser-window">
+        <div class="menu-bar">
+            <div class="menu-items">
+                <span class="menu-item">Home</span>
+                <span class="menu-item">Edit</span>
+                <span class="menu-item">View</span>
+                <span class="menu-item">History</span>
+                <span class="menu-item">Go</span>
+                <span class="menu-item">Options</span>
+                <span class="menu-item">Directory</span>
+                <span class="menu-item">Favourites</span>
+                <span class="menu-item">Guide</span>
+                <span class="menu-item">Help</span>
+                <span class="menu-item">About</span>
+                <span class="menu-item">Credits</span>
+            </div>
+            <div class="browser-logo">
+                <img src="SolScape.png" alt="S" />
+            </div>
+        </div>
+        <div class="address-bar">
+            <span class="address-label">Location:</span>
+            <div class="url-field" id="location-url"></div>
+        </div>
 
-    <div id="result-container"></div>
+        <div class="toolbar">
+            <a href="search.html" class="toolbar-btn"><img src="icons/back.gif" alt="" class="toolbar-icon" width="16" height="16" /><span>Back</span></a>
+            <a href="#" class="toolbar-btn"><img src="icons/forward.gif" alt="" class="toolbar-icon" width="16" height="16" /><span>Forward</span></a>
+            <a href="index.html" class="toolbar-btn"><img src="icons/home.gif" alt="" class="toolbar-icon" width="16" height="16" /><span>Home</span></a>
+            <a href="#" class="toolbar-btn"><img src="icons/print.gif" alt="" class="toolbar-icon" width="16" height="16" /><span>Print</span></a>
+            <a href="#" class="toolbar-btn"><img src="icons/fax.gif" alt="" class="toolbar-icon" width="16" height="16" /><span>Fax</span></a>
+            <a href="#" class="toolbar-btn"><img src="icons/radio.gif" alt="" class="toolbar-icon" width="16" height="16" /><span>Radio</span></a>
+            <a href="#" class="toolbar-btn"><img src="icons/satellite.gif" alt="" class="toolbar-icon" width="16" height="16" /><span>Satellite</span></a>
+            <a href="#" class="toolbar-btn"><img src="icons/tv.gif" alt="" class="toolbar-icon" width="16" height="16" /><span>TV</span></a>
+            <a href="search-result.html" class="toolbar-btn"><img src="icons/refresh.gif" alt="" class="toolbar-icon" width="16" height="16" /><span>Refresh</span></a>
+            <a href="#" class="toolbar-btn"><img src="icons/stop.gif" alt="" class="toolbar-icon" width="16" height="16" /><span>Stop</span></a>
+            <a href="#" class="toolbar-btn"><img src="icons/buy.gif" alt="" class="toolbar-icon" width="16" height="16" /><span>Buy</span></a>
+            <a href="#" class="toolbar-btn"><img src="icons/image.gif" alt="" class="toolbar-icon" width="16" height="16" /><span>Image</span></a>
+            <a href="#" class="toolbar-btn"><img src="icons/network.gif" alt="" class="toolbar-icon" width="16" height="16" /><span>Network</span></a>
+            <a href="#" class="toolbar-btn"><img src="icons/find.gif" alt="" class="toolbar-icon" width="16" height="16" /><span>Find</span></a>
+        </div>
+
+        <div class="viewport" id="content-area">
+            <div id="results-wrapper">
+                <div id="results-header"></div>
+                <div id="results-list"></div>
+                <div id="results-footer"></div>
+            </div>
+        </div>
+
+        <div class="status-bar">
+            <span id="status-text">About 1,000,000 results (0.03 seconds)</span>
+        </div>
+    </div>
 
     <script src="search-result.js"></script>
 </body>
