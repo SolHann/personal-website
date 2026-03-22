@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solscape</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css" type="text/css">
+    <link rel="stylesheet" href="search.css" type="text/css">
+</head>
+<body>
+    <div class="browser-window">
+        <div class="menu-bar">
+            <div class="menu-items">
+                <span class="menu-item">Home</span>
+                <span class="menu-item">Edit</span>
+                <span class="menu-item">View</span>
+                <span class="menu-item">History</span>
+                <span class="menu-item">Go</span>
+                <span class="menu-item">Options</span>
+                <span class="menu-item">Directory</span>
+                <span class="menu-item">Favourites</span>
+                <span class="menu-item">Guide</span>
+                <span class="menu-item">Help</span>
+                <span class="menu-item">About</span>
+                <span class="menu-item">Credits</span>
+            </div>
+            <div class="browser-logo">
+                <img src="SolScape.png" alt="S" />
+            </div>
+        </div>
+        <div class="address-bar">
+            <span class="address-label">Location:</span>
+            <div class="url-field" id="location-url">http://home.solscape.com/home/internet-search.html</div>
+        </div>
+
+        <div class="toolbar">
+            <a href="blursed.html" class="toolbar-btn"><img src="icons/back.gif" alt="" class="toolbar-icon" width="16" height="16" /><span>Back</span></a>
+            <a href="#" class="toolbar-btn"><img src="icons/forward.gif" alt="" class="toolbar-icon" width="16" height="16" /><span>Forward</span></a>
+            <a href="index.html" class="toolbar-btn"><img src="icons/home.gif" alt="" class="toolbar-icon" width="16" height="16" /><span>Home</span></a>
+            <a href="#" class="toolbar-btn"><img src="icons/print.gif" alt="" class="toolbar-icon" width="16" height="16" /><span>Print</span></a>
+            <a href="#" class="toolbar-btn"><img src="icons/fax.gif" alt="" class="toolbar-icon" width="16" height="16" /><span>Fax</span></a>
+            <a href="#" class="toolbar-btn"><img src="icons/radio.gif" alt="" class="toolbar-icon" width="16" height="16" /><span>Radio</span></a>
+            <a href="#" class="toolbar-btn"><img src="icons/satellite.gif" alt="" class="toolbar-icon" width="16" height="16" /><span>Satellite</span></a>
+            <a href="#" class="toolbar-btn"><img src="icons/tv.gif" alt="" class="toolbar-icon" width="16" height="16" /><span>TV</span></a>
+            <a href="search.html" class="toolbar-btn"><img src="icons/refresh.gif" alt="" class="toolbar-icon" width="16" height="16" /><span>Refresh</span></a>
+            <a href="#" class="toolbar-btn"><img src="icons/stop.gif" alt="" class="toolbar-icon" width="16" height="16" /><span>Stop</span></a>
+            <a href="#" class="toolbar-btn"><img src="icons/buy.gif" alt="" class="toolbar-icon" width="16" height="16" /><span>Buy</span></a>
+            <a href="#" class="toolbar-btn"><img src="icons/image.gif" alt="" class="toolbar-icon" width="16" height="16" /><span>Image</span></a>
+            <a href="#" class="toolbar-btn"><img src="icons/network.gif" alt="" class="toolbar-icon" width="16" height="16" /><span>Network</span></a>
+            <a href="#" class="toolbar-btn"><img src="icons/find.gif" alt="" class="toolbar-icon" width="16" height="16" /><span>Find</span></a>
+        </div>
+
+        <div class="viewport" id="content-area">
+            <div class="portal-layout">
+                <div class="portal-brand">
+                    <img src="SolScape.png" alt="Solscape" class="portal-logo" />
+                    <h1 class="portal-title">SOLSCAPE</h1>
+                </div>
+
+                <div class="portal-main">
+                    <div class="portal-search">
+                        <div class="search-row">
+                            <input type="text" id="search-input" placeholder="Enter search terms" maxlength="30" autocomplete="off" spellcheck="false" />
+                            <button id="btn-search" type="button">🔎</button>
+                        </div>
+                        <div class="search-quick-links">
+                            <a href="#" class="portal-link">Find a Business</a>
+                            <a href="#" class="portal-link">What's New</a>
+                            <a href="#" class="portal-link">What's Cool</a>
+                            <a href="#" class="portal-link">Net Search Page</a>
+                            <a href="#" class="portal-link">Search Tips</a>
+                        </div>
+                    </div>
+
+                    <hr class="portal-hr">
+
+                    <h2 class="portal-heading">Search by Category</h2>
+                    <table class="portal-categories">
+                        <tr>
+                            <td><a href="#" class="portal-link">Arts &amp; Humanities</a></td>
+                            <td><a href="#" class="portal-link">News &amp; Media</a></td>
+                            <td><a href="#" class="portal-link">Business &amp; Economy</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="portal-link">Computers &amp; Internet</a></td>
+                            <td><a href="#" class="portal-link">Recreation &amp; Sports</a></td>
+                            <td><a href="#" class="portal-link">Education</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="portal-link">Entertainment</a></td>
+                            <td><a href="#" class="portal-link">Government</a></td>
+                            <td><a href="#" class="portal-link">Health</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="portal-link">Reference</a></td>
+                            <td><a href="#" class="portal-link">Science</a></td>
+                            <td><a href="#" class="portal-link">Regional</a></td>
+                        </tr>
+                        <tr>
+                            <td><a href="#" class="portal-link">Social Science</a></td>
+                            <td><a href="#" class="portal-link">Society &amp; Culture</a></td>
+                            <td></td>
+                        </tr>
+                    </table>
+
+                    <hr class="portal-hr">
+
+                    <div class="portal-columns">
+                        <div class="portal-col">
+                            <h2 class="portal-heading">What's New</h2>
+                            <ul class="portal-list">
+                                <li><a href="#" class="portal-link">Solscape Navigator 3.0 Gold Edition</a></li>
+                                <li><a href="#" class="portal-link">Internet Directory: 500,000 Sites</a></li>
+                                <li><a href="#" class="portal-link">Java Applets Showcase</a></li>
+                            </ul>
+                        </div>
+                        <div class="portal-col">
+                            <h2 class="portal-heading">What's Cool</h2>
+                            <ul class="portal-list">
+                                <li><a href="#" class="portal-link">Encyclopaedia Britannica Online</a></li>
+                                <li><a href="#" class="portal-link">MapQuest Interactive Atlas</a></li>
+                                <li><a href="#" class="portal-link">The Internet Movie Database</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="portal-footer">
+                <p>Visitor <span class="portal-counter">#000384</span> &nbsp;|&nbsp; Copyright &copy; 1996 Solscape Communications Corporation</p>
+            </div>
+        </div>
+
+        <div class="status-bar">
+            <span id="status-text">Document: Done</span>
+        </div>
+    </div>
+
+    <div id="dark-overlay" class="hidden"></div>
+    <div id="magnifier" class="hidden">🔎</div>
+
+    <script src="search.js"></script>
+</body>
+</html>

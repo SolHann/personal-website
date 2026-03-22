@@ -1,0 +1,28 @@
+body {
+  overflow: hidden;
+  background: #d8d8d8;
+  margin: 0;
+}
+
+#result-container {
+  padding: 50px 0 20px;
+  overflow: hidden;
+}
+
+.result-line {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 18px;
+  line-height: 1.5;
+  color: #50514F;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 0 10px;
+  -moz-user-select: none;
+       user-select: none;
+  -webkit-user-select: none;
+}
+
+.result-word-measure {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 18px;
+}/*# sourceMappingURL=search-result.css.map */
