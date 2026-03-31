@@ -28,7 +28,8 @@ html {
   color: #333;
   cursor: url("CursorOpen.png") 16 10, grab;
   pointer-events: auto;
-  user-select: none;
+  -moz-user-select: none;
+       user-select: none;
   -webkit-user-select: none;
   box-shadow: 2px 3px 0px #333;
   z-index: 31;
@@ -382,6 +383,4 @@ body.dark-theme #confirm-display {
   min-height: 16px;
   margin-top: 6px;
   line-height: 1.6;
-}
-
-/*# sourceMappingURL=login.css.map */
+}/*# sourceMappingURL=login.css.map */
