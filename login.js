@@ -200,16 +200,21 @@
     return passwordTiles.map(function (t) { return t.char; }).join('');
   }
 
+  function validatePassword(pw) {
+    return {
+      hasUpper: /[A-Z]/.test(pw),
+      hasNumber: /[0-9]/.test(pw),
+      hasSymbol: /[!?@&]/.test(pw),
+      hasLength: pw.length >= 6,
+    };
+  }
+
   function updateRequirements() {
-    const pw = getPassword();
-    const hasUpper = /[A-Z]/.test(pw);
-    const hasNumber = /[0-9]/.test(pw);
-    const hasSymbol = /[!?@&]/.test(pw);
-    const hasLength = pw.length >= 6;
-    reqUpper.classList.toggle('met', hasUpper);
-    reqNumber.classList.toggle('met', hasNumber);
-    reqSymbol.classList.toggle('met', hasSymbol);
-    reqLength.classList.toggle('met', hasLength);
+    const v = validatePassword(getPassword());
+    reqUpper.classList.toggle('met', v.hasUpper);
+    reqNumber.classList.toggle('met', v.hasNumber);
+    reqSymbol.classList.toggle('met', v.hasSymbol);
+    reqLength.classList.toggle('met', v.hasLength);
   }
 
   // --- Confirm zone ---
@@ -301,11 +306,8 @@
       loginError.textContent = 'You need to drag some tiles into the password box.';
       return;
     }
-    const hasUpper = /[A-Z]/.test(pw);
-    const hasNumber = /[0-9]/.test(pw);
-    const hasSymbol = /[!?@&]/.test(pw);
-    const hasLength = pw.length >= 6;
-    if (!hasUpper || !hasNumber || !hasSymbol || !hasLength) {
+    const v = validatePassword(pw);
+    if (!v.hasUpper || !v.hasNumber || !v.hasSymbol || !v.hasLength) {
       loginError.textContent = 'Password does not meet all requirements!';
       return;
     }

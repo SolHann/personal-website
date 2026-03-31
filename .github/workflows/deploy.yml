@@ -18,4 +18,9 @@ jobs:
           script: |
             cd /var/www/solhann
             git pull
+            sass styles.scss styles.css
+            sass blursed.scss blursed.css
+            sass login.scss login.css
+            sass search.scss search.css
+            sass search-result.scss search-result.css
 

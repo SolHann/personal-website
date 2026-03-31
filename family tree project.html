@@ -39,7 +39,7 @@
             <a href="index.html">Home</a>
             <a href="secret.html" id="nav-secret" style="display:none;">Secret Page</a>
         </div>
-        <button class="btn-toggle">Toggle Dark-Mode</button>
+        <button class="btn-toggle" data-toggle="dark">Dark-Mode</button>
     </div>
     <svg id="canvas"></svg>
     <script src="script.js"></script>
@@ -109,7 +109,7 @@
             .text(d => d.data.name);
     </script>
     <script>
-        if (sessionStorage.getItem('blursedAuth')) {
+        if (sessionStorage.getItem('secretAuth')) {
             document.getElementById('nav-secret').style.display = '';
         }
     </script>

@@ -1,4 +1,4 @@
-const btn = document.querySelector(".btn-toggle:not([href])")
+const btn = document.querySelector("[data-toggle='dark']")
 
 function applyDarkMode(isDark) {
     document.body.classList.toggle("dark-theme", isDark);

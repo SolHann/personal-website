@@ -1,3 +1,10 @@
 .DS_Store
 TODO.md
 .claude/
+
+# Compiled SCSS output
+*.css
+*.css.map
+
+# Browser artifacts
+*.webarchive
