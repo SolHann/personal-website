@@ -1,17 +1,16 @@
 (function () {
   const MAX_TILES = 100;
   const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!?@&';
-  const TILE_SIZE = 48;
+  const TILE_SIZE = 58;
   const JITTER = 4;
   const DRIFT_SPEED = 0.3;
   const DAMPING = 0.98;
   const FRICTION = 0.94;
-  const REPULSE_RADIUS = 120;
+  const REPULSE_RADIUS = 160;
   const REPULSE_STRENGTH = 1.6;
 
   const playground = document.getElementById('tile-playground');
   const dropZone = document.getElementById('drop-zone');
-  const dropLabel = document.getElementById('drop-zone-label');
   const reqUpper = document.getElementById('req-upper');
   const reqNumber = document.getElementById('req-number');
   const reqSymbol = document.getElementById('req-symbol');
@@ -21,6 +20,8 @@
   const loginError = document.getElementById('login-error');
   const usernameInput = document.getElementById('username');
   const loginWrapper = document.querySelector('.login-wrapper');
+  const homeLink = document.querySelector('.home-link');
+  const darkToggle = document.querySelector('.blursed-toggle');
 
   const confirmSection = document.getElementById('confirm-section');
   const confirmDisplay = document.getElementById('confirm-display');
@@ -57,9 +58,8 @@
     el.className = 'tile';
     el.textContent = randomChar();
 
-    const headerH = 0;
     const x = Math.random() * (window.innerWidth - TILE_SIZE);
-    const y = headerH + Math.random() * (window.innerHeight - headerH - TILE_SIZE);
+    const y = Math.random() * (window.innerHeight - TILE_SIZE);
 
     el.style.left = x + 'px';
     el.style.top = y + 'px';
@@ -242,7 +242,7 @@
 
   function clearFloatingTiles() {
     while (tiles.length) {
-      var t = tiles.pop();
+      const t = tiles.pop();
       playground.removeChild(t.el);
     }
   }
@@ -279,7 +279,7 @@
       if (confirmPw !== savedPassword) {
         loginError.textContent = 'Passwords do not match! Try again.';
         while (confirmTiles.length) {
-          var ct = confirmTiles.pop();
+          const ct = confirmTiles.pop();
           confirmZone.removeChild(ct.el);
         }
         confirmZone.classList.remove('has-tiles');
@@ -312,22 +312,35 @@
     enterConfirmMode(pw);
   });
 
+  // --- Collision helper ---
+  function bounceOffRect(t, rect, pad) {
+    const r = {
+      left: rect.left - pad,
+      right: rect.right + pad,
+      top: rect.top - pad,
+      bottom: rect.bottom + pad,
+    };
+    const tRight = t.x + TILE_SIZE;
+    const tBottom = t.y + TILE_SIZE;
+    if (tRight > r.left && t.x < r.right && tBottom > r.top && t.y < r.bottom) {
+      const oL = tRight - r.left, oR = r.right - t.x;
+      const oT = tBottom - r.top, oB = r.bottom - t.y;
+      const min = Math.min(oL, oR, oT, oB);
+      if (min === oL)      { t.x = r.left - TILE_SIZE; t.vx = -Math.abs(t.vx) * 0.6; }
+      else if (min === oR) { t.x = r.right;            t.vx =  Math.abs(t.vx) * 0.6; }
+      else if (min === oT) { t.y = r.top - TILE_SIZE;  t.vy = -Math.abs(t.vy) * 0.6; }
+      else                 { t.y = r.bottom;            t.vy =  Math.abs(t.vy) * 0.6; }
+    }
+  }
+
   // --- Physics loop ---
   function physicsTick() {
-    const headerH = 0;
     const maxX = window.innerWidth - TILE_SIZE;
     const maxY = window.innerHeight - TILE_SIZE;
 
-    // Get login wrapper bounding rect for collision
     const wrapperRect = loginWrapper.getBoundingClientRect();
-    // Pad slightly so tiles don't overlap the edge
-    const pad = 4;
-    const wr = {
-      left: wrapperRect.left - pad,
-      right: wrapperRect.right + pad,
-      top: wrapperRect.top - pad,
-      bottom: wrapperRect.bottom + pad,
-    };
+    const homeLinkRect = homeLink.getBoundingClientRect();
+    const darkToggleRect = darkToggle.getBoundingClientRect();
 
     for (let i = 0; i < tiles.length; i++) {
       const t = tiles[i];
@@ -340,7 +353,6 @@
       const dy = tileCY - mouseY;
       const dist = Math.sqrt(dx * dx + dy * dy);
 
-      // Toggle fleeing limbs
       const isFleeing = dist < REPULSE_RADIUS;
       t.el.classList.toggle('fleeing', isFleeing);
 
@@ -368,39 +380,15 @@
       t.x += t.vx;
       t.y += t.vy;
 
-      // --- Bounce off login wrapper ---
-      const tRight = t.x + TILE_SIZE;
-      const tBottom = t.y + TILE_SIZE;
-
-      // Only deflect if the tile overlaps the wrapper rect
-      if (tRight > wr.left && t.x < wr.right && tBottom > wr.top && t.y < wr.bottom) {
-        // Find the smallest penetration axis to resolve
-        const overlapLeft = tRight - wr.left;
-        const overlapRight = wr.right - t.x;
-        const overlapTop = tBottom - wr.top;
-        const overlapBottom = wr.bottom - t.y;
-
-        const minOverlap = Math.min(overlapLeft, overlapRight, overlapTop, overlapBottom);
-
-        if (minOverlap === overlapLeft) {
-          t.x = wr.left - TILE_SIZE;
-          t.vx = -Math.abs(t.vx) * 0.6;
-        } else if (minOverlap === overlapRight) {
-          t.x = wr.right;
-          t.vx = Math.abs(t.vx) * 0.6;
-        } else if (minOverlap === overlapTop) {
-          t.y = wr.top - TILE_SIZE;
-          t.vy = -Math.abs(t.vy) * 0.6;
-        } else {
-          t.y = wr.bottom;
-          t.vy = Math.abs(t.vy) * 0.6;
-        }
-      }
+      // --- Bounce off UI elements ---
+      bounceOffRect(t, wrapperRect, 4);
+      bounceOffRect(t, homeLinkRect, 4);
+      bounceOffRect(t, darkToggleRect, 4);
 
       // Bounce off edges
       if (t.x < 0) { t.x = 0; t.vx = Math.abs(t.vx); }
       if (t.x > maxX) { t.x = maxX; t.vx = -Math.abs(t.vx); }
-      if (t.y < headerH) { t.y = headerH; t.vy = Math.abs(t.vy); }
+      if (t.y < 0) { t.y = 0; t.vy = Math.abs(t.vy); }
       if (t.y > maxY) { t.y = maxY; t.vy = -Math.abs(t.vy); }
 
       t.el.style.left = t.x + 'px';

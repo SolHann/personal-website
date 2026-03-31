@@ -9,17 +9,16 @@ $pixel: 'Press Start 2P', sans-serif;
   height: 100vh;
   pointer-events: none;
   z-index: 30;
-  cursor: crosshair;
 }
 
-body {
-  cursor: crosshair;
+html {
+  cursor: url('CursorOpen.png') 16 10, grab;
 }
 
 .tile {
   position: absolute;
-  width: 44px;
-  height: 44px;
+  width: 54px;
+  height: 54px;
   background: #fff;
   border: 2px solid #333;
   border-radius: 4px;
@@ -30,7 +29,7 @@ body {
   font-weight: bold;
   font-family: $pixel;
   color: #333;
-  cursor: grab;
+  cursor: url('CursorOpen.png') 16 10, grab;
   pointer-events: auto;
   user-select: none;
   -webkit-user-select: none;
@@ -39,7 +38,7 @@ body {
   animation: tile-pop-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 
   &:active {
-    cursor: grabbing;
+    cursor: url('CursorGrab.png') 16 10, grabbing;
   }
 
   &.dragging {
@@ -135,14 +134,15 @@ body {
 .login-wrapper {
   position: relative;
   z-index: 20;
-  max-width: 420px;
+  max-width: 360px;
   margin: 80px auto;
-  padding: 24px;
+  padding: 18px;
   background: rgba(255, 255, 255, 0.95);
   border: 2px solid #333;
   border-radius: 4px;
   box-shadow: 4px 6px 0px #333;
   text-align: center;
+  cursor: default;
 
   body.dark-theme & {
     background: rgba(60, 60, 60, 0.97);
@@ -151,9 +151,9 @@ body {
   }
 
   h2 {
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     font-family: $pixel;
-    font-size: 18px;
+    font-size: 16px;
   }
 
   p.subtitle {
@@ -173,12 +173,12 @@ body {
 
   input[type="text"] {
     width: 100%;
-    padding: 8px 10px;
-    font-size: 16px;
+    padding: 6px 10px;
+    font-size: 15px;
     font-family: $monospace;
     border: 2px solid #333;
     border-radius: 4px;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
     box-sizing: border-box;
     box-shadow: inset 1px 2px 0px rgba(0,0,0,0.1);
 
@@ -295,13 +295,16 @@ body {
   text-align: left;
   font-size: 10px;
   font-family: $pixel;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
   list-style: none;
   padding: 0;
-  line-height: 1.8;
+  line-height: 1.6;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px 8px;
 
   li {
-    margin-bottom: 4px;
+    margin-bottom: 0;
     color: #c44;
     transition: color 0.2s;
 
@@ -325,13 +328,13 @@ body {
   display: flex;
   gap: 8px;
   justify-content: center;
-  margin-top: 14px;
+  margin-top: 10px;
   flex-wrap: wrap;
 
   button {
     padding: 6px 12px;
     font-size: 10px;
-    cursor: cell;
+    cursor: pointer;
     font-family: $pixel;
     background: #fff;
     border: 2px solid #333;
@@ -409,7 +412,7 @@ body {
   color: #c44;
   font-size: 10px;
   font-family: $pixel;
-  min-height: 20px;
-  margin-top: 10px;
+  min-height: 16px;
+  margin-top: 6px;
   line-height: 1.6;
 }

@@ -43,7 +43,7 @@ a {
 .btn-toggle {
   padding: 5px 10px;
   margin: 5px 5px 7px;
-  cursor: cell;
+  cursor: pointer;
   font-family: "Press Start 2P", sans-serif;
   background: #fff;
   border: 2px solid #333;
