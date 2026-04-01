@@ -16,11 +16,13 @@ jobs:
           username: sol
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
             cd /var/www/solhann
             git pull
-            /usr/local/bin/sass styles.scss styles.css
-            /usr/local/bin/sass blursed.scss blursed.css
-            /usr/local/bin/sass login.scss login.css
-            /usr/local/bin/sass search.scss search.css
-            /usr/local/bin/sass search-result.scss search-result.css
+            sass styles.scss styles.css
+            sass blursed.scss blursed.css
+            sass login.scss login.css
+            sass search.scss search.css
+            sass search-result.scss search-result.css
 
