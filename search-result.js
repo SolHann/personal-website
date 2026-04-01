@@ -145,7 +145,7 @@
     }
 
     entry.innerHTML =
-      '<a href="#" class="result-title">' + titles[i] + '</a>' + badgeHtml +
+      '<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="result-title">' + titles[i] + '</a>' + badgeHtml +
       '<div class="result-url">http://' + domains[i] + '</div>' +
       '<div class="result-desc">' + descriptions[i] + '</div>' +
       counterHtml +

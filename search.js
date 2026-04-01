@@ -1,7 +1,7 @@
 (function () {
   // ── Constants ──────────────────────────────────
   var DECOY_COUNT = 40;
-  var LIGHT_RADIUS = 82;
+  var LIGHT_RADIUS = 110;
   var currentTerm = '';
 
   // ── DOM refs ───────────────────────────────────
@@ -110,7 +110,9 @@
     locationUrl.textContent = 'http://home.solscape.com/search?q=' + encodeURIComponent(term);
 
     // The 🔎 vanishes from the button — you've taken it
-    btnSearch.style.color = 'transparent';
+    btnSearch.style.width  = btnSearch.offsetWidth  + 'px';
+    btnSearch.style.height = btnSearch.offsetHeight + 'px';
+    btnSearch.textContent = '';
     searchInput.value = 'you must search for... ' + term;
     searchInput.style.fontWeight = 'bold';
 

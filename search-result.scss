@@ -57,6 +57,7 @@ body {
   text-decoration: underline;
   cursor: pointer;
   font-weight: normal;
+  display: inline;
 
   &:visited {
     color: #551A8B;
@@ -139,7 +140,7 @@ body {
   font-size: 14px;
   color: #00c;
   text-decoration: underline;
-  cursor: pointer;
+  cursor: default;
 
   &.active {
     color: #000;

@@ -113,6 +113,10 @@ body {
   text-decoration: none;
   cursor: default;
   background: #C0C0C0;
+
+  &[href]:not([href="#"]):not([href=""]) {
+    cursor: pointer;
+  }
   border-top: 2px solid #fff;
   border-left: 2px solid #fff;
   border-bottom: 2px solid #808080;
@@ -277,7 +281,7 @@ body {
 .portal-link {
   color: #0000EE;
   text-decoration: underline;
-  cursor: pointer;
+  cursor: default;
 
   &:visited {
     color: #551A8B;
@@ -345,6 +349,10 @@ body {
 
 body.hunt-active {
   cursor: none;
+
+  * {
+    cursor: none !important;
+  }
 }
 
 // Word layer sits on top of portal content, below overlay
@@ -397,7 +405,7 @@ body.hunt-active {
   pointer-events: none;
 
   &.dimming {
-    transition: opacity 3s ease;
+    transition: opacity 2.9s ease;
   }
 }
 
