@@ -1,7 +1,7 @@
 (function () {
   // ── Constants ──────────────────────────────────
-  var DECOY_COUNT = 55;
-  var LIGHT_RADIUS = 77;
+  var DECOY_COUNT = 40;
+  var LIGHT_RADIUS = 82;
   var currentTerm = '';
 
   // ── DOM refs ───────────────────────────────────
